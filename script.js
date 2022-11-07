@@ -45,10 +45,12 @@ function playRound (playerSelection, computerSelection) {
 }
 
 function game () {
+  /*
   let rounds = prompt("¿How Many Rounds?");
   for (let i = 0; i < rounds; i++) {
     console.log(playRound(prompt("¿Rock, Paper or Scissors?"), getComputerChoice()));
   }
+  */
   if (playerScore === computerScore) {
     return "Result: It's a tie! Nobody wins :D"
   } else if (playerScore > computerScore) {
@@ -57,5 +59,10 @@ function game () {
     return "Result: You lose! get better kid"
   }
 }
+
+document.getElementById("aubrey_sprite").src = "./img/aubrey/aubrey_neutral.gif"
+document.getElementById("hero_sprite").src = "./img/hero/hero_neutral.gif"
+document.getElementById("omori_sprite").src = "./img/omori/omori_neutral.gif"
+document.getElementById("kel_sprite").src = "./img/kel/kel_neutral.gif"
 
 document.getElementById('result').textContent=game();

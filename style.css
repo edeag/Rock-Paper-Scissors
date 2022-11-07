@@ -1,0 +1,35 @@
+html {
+    background-image: url("./img/paperBG.jpg");
+    background-size: cover;
+}
+
+
+#characters {
+    display: flex;
+    flex-direction: column;
+    gap: 300px;
+    margin: 25px;
+}
+
+.chrTop, .chrBottom {
+    display: flex;
+    justify-content: center;
+    gap: 500px;
+}
+
+.chr {
+    background-color: rgb(230, 229, 227);
+    border: 2px solid black;
+    border-radius: 3px;
+    height: 200px;
+    width: 150px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.chr_sprite {
+    width: 120px;
+    height: 120px;
+    margin-top: 15px;
+}
