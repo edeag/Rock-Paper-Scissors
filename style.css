@@ -58,7 +58,6 @@ body {
 
     justify-content: center;
     align-items: center;
-    opacity: 100%;
 }
 
 #fight, #credits {
@@ -196,4 +195,45 @@ body {
 
 .img_m2 {
   width: 100%;
+}
+
+#roboheart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 700px;
+  margin-bottom: -60px;
+}
+
+#roboheart_sprite {
+  width: 100%;
+}
+
+#rh_hpBar {
+  background-color: rgb(0, 0, 0, .1);
+  border: 3px solid black;
+  
+  top: 20%;
+  width: 400px;
+  height: 25px;
+  position: absolute;
+}
+
+#rh_hpBar_filler {
+  
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: rgb(255, 87, 87);
+}
+
+#rock_attack {
+  position: absolute;
+  transform: translate(15%, 15%);
+  display: none;
+}
+
+#something {
+  position: absolute;
 }

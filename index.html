@@ -5,11 +5,29 @@
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title></title>
+
+    <audio src="./sounds/move.ogg" id="move_sound"></audio>
+    <audio src="./sounds/enter.ogg" id="select_sound"></audio>
+    <audio src="./sounds/back.ogg" id="back_sound"></audio>
+    <audio src="./sounds/roboheart.mp3" id="roboheart_theme"></audio>
+    <audio src="./sounds/hit.ogg" id="hit_sound"></audio>
+    <audio src="./sounds/victory.mp3" id="victory_theme"></audio>
+
   </head>
   <body>
+
+    <div id="rh_hpBar">
+      <div id="rh_hpBar_filler"></div>
+    </div>
+    <div id="roboheart">
+      <img id="roboheart_sprite" src="" alt="roboheart">
+    </div>
+
+    <img id="rock_attack" src="./img/ui/rock_attack.gif" alt="rock_attack">
+
     <div id="main_ui">
 
-      <div id="characters">
+      <div id="characters">        
         <div class="chrTop">
           <div class="chr" id="aubrey">
             <img id="aubrey_sprite" class="chr_sprite" src="" alt="aubrey">
@@ -29,7 +47,8 @@
         </div>
       </div>
 
-    <div id="battle_ui">
+      
+   
 
     <div id="menu1">
       <img id="fight" src="./img/ui/fight.png" alt="fight button">
@@ -53,7 +72,6 @@
       <div id="box_text">What will OMORI and friends do?</div>
     </div>
 
-    </div>
   </body>
 </html>
 
