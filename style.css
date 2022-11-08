@@ -1,8 +1,23 @@
 html {
     background-image: url("./img/paperBG.jpg");
     background-size: cover;
+    font-family: 'omori_gameregular';
 }
 
+@font-face {
+    font-family: 'omori_gameregular';
+    src: url('./fonts/omori_game2-webfont.woff2') format('woff2'),
+         url('./fonts/omori_game2-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 #characters {
     display: flex;
@@ -22,7 +37,7 @@ html {
     border: 2px solid black;
     border-radius: 3px;
     height: 200px;
-    width: 150px;
+    min-width: 150px;
 
     display: flex;
     justify-content: center;
@@ -32,4 +47,153 @@ html {
     width: 120px;
     height: 120px;
     margin-top: 15px;
+    border: 2px solid black;
+}
+
+#menu1 {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: -130px;
+
+    justify-content: center;
+    align-items: center;
+    opacity: 100%;
+}
+
+#fight, #credits {
+    width: 450px;
+}
+
+#menu2 {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: -105px;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+#selection {
+    width: 450px;
+}
+
+#box {
+
+    height: 120px;
+    width: 470px;
+    background-color: black;
+    border: 5px solid white;
+
+    position:absolute;
+    top: -1%;
+    transform: translate(40%);
+    
+}
+
+#box_text {
+    color: white;
+    font-size: 32px;
+    margin: 12px;
+}
+
+#pointer {
+    width: 35px;
+}
+
+.up {
+    animation: up_lr 2s infinite;
+}
+
+@keyframes up_lr {
+    0%,
+    100% {
+    transform: translate(940%, -520%);
+    }
+  
+    50% {
+    transform: translate(900%, -520%);
+    }
+  } 
+
+.down {
+    animation: down_lr 2s infinite;
+}
+
+@keyframes down_lr {
+    0%,
+    100% {
+    transform: translate(940%, -180%);
+    }
+  
+    50% {
+    transform: translate(900%, -180%);
+    }
+  } 
+
+  .left_up {
+    animation: left_up_lr 2s infinite;
+  }
+  @keyframes left_up_lr {
+    0%,
+    100% {
+    transform: translate(625%, -500%);
+    }
+  
+    50% {
+    transform: translate(600%, -500%);
+    }
+  } 
+
+  .left_down {
+    animation: left_down_lr 2s infinite;
+  }
+  @keyframes left_down_lr {
+    0%,
+    100% {
+    transform: translate(625%, -180%);
+    }
+  
+    50% {
+    transform: translate(600%, -180%);
+    }
+  } 
+
+  .right_up {
+    animation: right_up_lr 2s infinite;
+     }
+  @keyframes right_up_lr {
+    0%,
+    100% {
+    transform: translate(1260%, -500%);
+    }
+  
+    50% {
+    transform: translate(1235%, -500%);
+    }
+  } 
+
+  .right_down {
+    animation: right_down_lr 2s infinite;
+  }
+  @keyframes right_down_lr {
+    0%,
+    100% {
+    transform: translate(1260%, -180%);
+    }
+  
+    50% {
+    transform: translate(1235%, -180%);
+    }
+  } 
+
+#menu2 {
+  display: grid;
+  grid-template-columns: repeat(2, 220px);
+  opacity: 0%;
+}
+
+.img_m2 {
+  width: 100%;
 }

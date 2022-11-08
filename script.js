@@ -65,4 +65,80 @@ document.getElementById("hero_sprite").src = "./img/hero/hero_neutral.gif"
 document.getElementById("omori_sprite").src = "./img/omori/omori_neutral.gif"
 document.getElementById("kel_sprite").src = "./img/kel/kel_neutral.gif"
 
-document.getElementById('result').textContent=game();
+// 700px down / 645 up
+const pointer = document.getElementById("pointer");
+pointer.classList.add("up");
+
+let currentMenu = 1;
+
+window.addEventListener("keydown", function(e){
+  /*
+  if (e.key === "ArrowDown") {
+    pointer.className = '';
+    pointer.classList.add("down");
+  } else if (e.key === "ArrowUp") {
+    pointer.className = '';
+    pointer.classList.add("up");
+  }
+  */
+    
+    switch(e.key) {
+      case "ArrowDown":
+        if(pointer.classList.contains("up")){
+          pointer.className = "down";
+          break;
+        } else if(pointer.classList.contains("left_up")){
+            pointer.className = "left_down";
+            break;
+        } else if (pointer.classList.contains("right_up")){
+            pointer.className = "right_down";
+            break;
+        } else break;
+
+      case "ArrowUp":
+        if(pointer.classList.contains("down")){
+          pointer.className = "up";
+          break;
+        } else if(pointer.classList.contains("left_down")){
+            pointer.className = "left_up";
+            break;
+          } else if(pointer.classList.contains("right_down")){
+            pointer.className = "right_up";
+            break;
+          } else break;
+
+      case "ArrowRight":
+        if(pointer.classList.contains("left_up")){
+          pointer.className = "right_up";
+          break;
+        } else if (pointer.classList.contains("left_down")){
+          pointer.className = "right_down";
+          break;
+        } else break;
+      case "ArrowLeft":
+        if(pointer.classList.contains("right_up")){
+          pointer.className = "left_up";
+          break;
+        } else if(pointer.classList.contains("right_down")){
+          pointer.className = "left_down";
+          break;
+        } else break;
+      case "z":
+        if(currentMenu === 1){
+          pointer.className = "left_up";
+          document.getElementById("menu1").style.opacity = "0%";
+          document.getElementById("menu2").style.opacity = "100";
+          currentMenu = 2;
+          break;
+        } else if(currentMenu === 2) {
+          break;
+        }
+      case "x":
+
+        break;
+      case "a":
+        console.log(pointer.className);
+        break;
+    }
+    console.log(pointer.classList);
+});
