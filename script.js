@@ -1,15 +1,3 @@
-
-
-function game () {
-  if (playerScore === computerScore) {
-    return "Result: It's a tie! Nobody wins :D"
-  } else if (playerScore > computerScore) {
-    return "Result: You win! the computer sucks!"
-  } else {
-    return "Result: You lose! get better kid"
-  }
-}
-
 let aubrey_sprite = document.getElementById("aubrey_sprite");
 aubrey_sprite.src = "./img/aubrey/aubrey_neutral.gif";
 let hero_sprite = document.getElementById("hero_sprite");
@@ -51,7 +39,14 @@ pointer.classList.add("up");
 let rh_hp_percent = "100";
 let chr_hp_percent = "100";
 let currentMenu = 1;
-let isVictory = 0;
+let isTheEnd = 0;
+
+document.getElementById("fight").addEventListener("click", () => goMenu2());
+document.getElementById("credits").addEventListener("click", () => showCredits());
+document.getElementById("rock").addEventListener("click", () => box.textContent = playRound("rock", getComputerChoice()) );
+document.getElementById("scissors").addEventListener("click", () => box.textContent = playRound("scissors", getComputerChoice()) );
+document.getElementById("paper").addEventListener("click", () => box.textContent = playRound("paper", getComputerChoice()) );
+document.getElementById("random").addEventListener("click", () => box.textContent = playRound(getComputerChoice(), getComputerChoice()) );
 
 window.addEventListener("keydown", function(e){
     rhTheme.play();
@@ -103,49 +98,59 @@ window.addEventListener("keydown", function(e){
         } else break;
 
       case "z":
-        selectSound.play();
-        if(pointer.classList.contains("up")){
-          pointer.className = "left_up";
-          document.getElementById("menu1").style.opacity = "0%";
-          document.getElementById("menu2").style.opacity = "100%";
-          currentMenu = 2;
-          break;
-        } else if (pointer.classList.contains("down")){
-            alert("Omori by Omocat LLC! Buy it now on Steam! \nSparkles animation by Murilo Gama \nRock Paper Scissors by Xie Zhaozhe (206 BCE – 220 CE)\n\nMade by Emiliano Deagustini :)");
-            break;
-        } else if(pointer.classList.contains("left_up")) {
-            box.textContent = (playRound("rock", getComputerChoice()));
-            break;
-        } else if(pointer.classList.contains("left_down")){
-          box.textContent = (playRound("scissors", getComputerChoice()));
-            break;
-        } else if(pointer.classList.contains("right_up")){
-          box.textContent = (playRound("paper", getComputerChoice()));
-            break;
-        } else if(pointer.classList.contains("right_down")){
-          box.textContent = (playRound(getComputerChoice(), getComputerChoice()));
-            break;
-        } else break;
-
+        menuSelectionKeys();
+        break;
+      case "Enter":
+        menuSelectionKeys();
+        break;
       case "x":
-        backSound.play();
-        if(currentMenu === 2){
-          pointer.className = "up";
-          document.getElementById("menu1").style.opacity = "100%";
-          document.getElementById("menu2").style.opacity = "0%";
-          currentMenu = 1;
-          break;
-        } else break;
+        goBack();
+        break;
+      case "Escape":
+        goBack();
+        break;
       case "a":
         break;
     }
-
-    
-    
-    
-
-    console.log(pointer.classList);
 });
+
+function goMenu2 () {
+  pointer.className = "left_up";
+  document.getElementById("menu1").style.display = "none";
+  document.getElementById("menu2").style.display = "grid";
+  currentMenu = 2;
+}
+
+function showCredits () {
+  alert("Omori by Omocat LLC! Buy it now on Steam! \nSparkles animation by Murilo Gama \nRock Paper Scissors by Xie Zhaozhe (206 BCE - 220 CE)\n\nMade by Emiliano Deagustini :)");
+}
+
+function menuSelectionKeys () {
+  selectSound.play();
+  if(pointer.classList.contains("up")){
+    goMenu2();
+  } else if (pointer.classList.contains("down")){
+    showCredits();
+  } else if(pointer.classList.contains("left_up")) {
+    box.textContent = (playRound("rock", getComputerChoice()));
+  } else if(pointer.classList.contains("left_down")){
+    box.textContent = (playRound("scissors", getComputerChoice()));
+  } else if(pointer.classList.contains("right_up")){
+    box.textContent = (playRound("paper", getComputerChoice()));
+  } else if(pointer.classList.contains("right_down")){
+    box.textContent = (playRound(getComputerChoice(), getComputerChoice()));
+  } else return;
+}
+
+function goBack () {
+  backSound.play();
+  if(currentMenu === 2){
+    pointer.className = "up";
+    document.getElementById("menu1").style.display = "flex";
+    document.getElementById("menu2").style.display = "none";
+    currentMenu = 1;
+  } else return;
+}
 
 function calcHP () {
   rh_hp_percent = 100 - playerScore * 20 + "%";
@@ -165,10 +170,10 @@ function calcHP () {
 }
 
 function delay (ms) {
-  document.getElementById("menu1").style.opacity = "0%";
-  document.getElementById("menu2").style.opacity = "0%";
+  document.getElementById("menu1").style.display = "none";
+  document.getElementById("menu2").style.display = "none";
   pointer.className = "";
-  pointer.style.opacity = "0%";
+  pointer.style.display = "none";
   selectSound = "";
   moveSound = "";
   backSound = "";
@@ -178,9 +183,9 @@ function delay (ms) {
     moveSound = document.getElementById("move_sound");
     backSound = document.getElementById("back_sound");
     selectSound = document.getElementById("select_sound");
-    document.getElementById("menu1").style.opacity = "100%";
+    document.getElementById("menu1").style.display = "flex";
     pointer.className = "up";
-    pointer.style.opacity = "100%";
+    pointer.style.display = "block";
     box.textContent = "What will OMORI and friends do?";
   }, ms + "");
   }
@@ -207,7 +212,7 @@ function hit () {
   setTimeout(() => {
     hitSound.pause();
     hitSound.currentTime = 0;
-    if (isVictory === 0) {
+    if (isTheEnd === 0) {
     roboheart_sprite.src = "./img/roboheart/roboheart_neutral.gif";
     }
   }, "1000");
@@ -223,7 +228,7 @@ function rhHit () {
   kel_sprite.src = "./img/kel/kel_injured.gif";
   sparkles2.style.display = "block";
   setTimeout(() => {
-    if (isVictory === 0) {
+    if (isTheEnd === 0) {
     sparkles2.style.display = "none";
     aubrey_sprite.src = "./img/aubrey/aubrey_neutral.gif";
     hero_sprite.src = "./img/hero/hero_neutral.gif";
@@ -248,7 +253,6 @@ function getComputerChoice () {
 
 let playerScore = 0;
 let computerScore = 0;
-let selection = "";
 
 function playRound (playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
@@ -258,17 +262,11 @@ function playRound (playerSelection, computerSelection) {
     protect();
     return "Roboheart protects from the attack with " + playerSelection;
   } else if (playerSelection === "rock") {
-
       youLose = (computerSelection === "paper" ? true : false);
-
   } else if (playerSelection === "paper") {
-
       youLose = (computerSelection === "scissors" ? true : false);
-
   } else if (playerSelection === "scissors") {
-
       youLose = (computerSelection === "rock" ? true : false);
-
   } else {
     return "Invalid option, please try again!"
   }
@@ -276,20 +274,20 @@ function playRound (playerSelection, computerSelection) {
   if (youLose === false) {
     playerScore = playerScore + 1;
     hit();
-    if (isVictory === 0) {
+    if (isTheEnd === 0) {
     return "Roboheart uses " + computerSelection + "! \n Roboheart takes damage!";
     } else return "OMORI's party was victorious!";
   } else {
     computerScore = computerScore + 1;
     rhHit();
-    if (isVictory === 0) {
+    if (isTheEnd === 0) {
     return "Roboheart counters " + playerSelection + " with " + computerSelection + "! \n Omori party takes damage!";
     } else return "GAME OVER :(";
   }
 }
 
 function victory () {
-  isVictory = 1;
+  isTheEnd = 1;
   currentMenu = 4;
   aubrey_sprite.src = "./img/aubrey/aubrey_victory.gif";
   hero_sprite.src = "./img/hero/hero_victory.gif";
@@ -303,7 +301,7 @@ function victory () {
 }
 
 function defeat () {
-  isVictory = 1;
+  isTheEnd = 1;
   currentMenu = 4;
   aubrey_sprite.src = "./img/aubrey/aubrey_toast.gif";
   hero_sprite.src = "./img/toast.gif";
