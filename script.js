@@ -41,14 +41,13 @@ let chr_hp_percent = "100";
 let currentMenu = 1;
 let isTheEnd = 0;
 
-document.getElementById("fight").addEventListener("click", () => goMenu2());
+document.getElementById("fight").addEventListener("click", () => {goMenu2(); rhTheme.play();});
 document.getElementById("credits").addEventListener("click", () => showCredits());
 document.getElementById("rock").addEventListener("click", () => box.textContent = playRound("rock", getComputerChoice()) );
 document.getElementById("scissors").addEventListener("click", () => box.textContent = playRound("scissors", getComputerChoice()) );
 document.getElementById("paper").addEventListener("click", () => box.textContent = playRound("paper", getComputerChoice()) );
 document.getElementById("random").addEventListener("click", () => box.textContent = playRound(getComputerChoice(), getComputerChoice()) );
 
-window.onclick = rhTheme.play();
 window.addEventListener("keydown", function(e){
     rhTheme.play();
     switch(e.key) {
