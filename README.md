@@ -1,4 +1,5 @@
 Simple Rock Paper Scissors game with the Omori UI!
+Live Preview: https://htmlpreview.github.io/?https://github.com/edeag/Rock-Paper-Scissors/blob/main/index.html
 
 Controls:
 Z/Enter => Select
