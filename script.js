@@ -48,6 +48,7 @@ document.getElementById("scissors").addEventListener("click", () => box.textCont
 document.getElementById("paper").addEventListener("click", () => box.textContent = playRound("paper", getComputerChoice()) );
 document.getElementById("random").addEventListener("click", () => box.textContent = playRound(getComputerChoice(), getComputerChoice()) );
 
+window.onclick = rhTheme.play();
 window.addEventListener("keydown", function(e){
     rhTheme.play();
     switch(e.key) {
