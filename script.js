@@ -26,6 +26,9 @@ let moveSound = document.getElementById("move_sound");
 let selectSound = document.getElementById("select_sound");
 let backSound = document.getElementById("back_sound");
 let hitSound = document.getElementById("hit_sound");
+let rhAttack = document.getElementById("rh_attack");
+let blockSound = document.getElementById("block_attack");
+
 let rhTheme = document.getElementById("roboheart_theme");
 let victoryTheme = document.getElementById("victory_theme")
 
@@ -34,13 +37,21 @@ rhTheme.volume = 0.6;
 let box = document.getElementById("box_text");
 
 let rh_hpBar = document.getElementById("rh_hpBar_filler");
+let aubrey_hp = document.getElementById("aubrey_hp");
+let hero_hp = document.getElementById("hero_hp");
+let omori_hp = document.getElementById("omori_hp");
+let kel_hp = document.getElementById("kel_hp");
 
 let rockAttack = document.getElementById("rock_attack");
+let sparkles = document.getElementById("sparkles");
+let sparkles2 = document.getElementById("sparkles_2");
 let pointer = document.getElementById("pointer");
 pointer.classList.add("up");
 
 let rh_hp_percent = "100";
+let chr_hp_percent = "100";
 let currentMenu = 1;
+let isVictory = 0;
 
 window.addEventListener("keydown", function(e){
     rhTheme.play();
@@ -100,7 +111,7 @@ window.addEventListener("keydown", function(e){
           currentMenu = 2;
           break;
         } else if (pointer.classList.contains("down")){
-            alert("show credits :p");
+            alert("Omori by Omocat LLC! Buy it now on Steam! \nSparkles animation by Murilo Gama \nRock Paper Scissors by Xie Zhaozhe (206 BCE – 220 CE)\n\nMade by Emiliano Deagustini :)");
             break;
         } else if(pointer.classList.contains("left_up")) {
             box.textContent = (playRound("rock", getComputerChoice()));
@@ -131,28 +142,62 @@ window.addEventListener("keydown", function(e){
 
     
     
-    rh_hp_percent = 100 - playerScore * 20 + "%";
-    rh_hpBar.style.width = rh_hp_percent;
-    if(rh_hpBar.style.width === "0%"){
-      victory();
-    } else return;
+    
 
     console.log(pointer.classList);
 });
+
+function calcHP () {
+  rh_hp_percent = 100 - playerScore * 20 + "%";
+  rh_hpBar.style.width = rh_hp_percent;
+  if(rh_hpBar.style.width === "0%"){
+    victory();
+  }
+
+  chr_hp_percent = 100 - computerScore * 20 + "%";
+  aubrey_hp.style.width = chr_hp_percent;
+  hero_hp.style.width = chr_hp_percent;
+  omori_hp.style.width = chr_hp_percent;
+  kel_hp.style.width = chr_hp_percent;
+  if(aubrey_hp.style.width === "0%"){
+    defeat();
+  } else return;
+}
 
 function delay (ms) {
   document.getElementById("menu1").style.opacity = "0%";
   document.getElementById("menu2").style.opacity = "0%";
   pointer.className = "";
   pointer.style.opacity = "0%";
+  selectSound = "";
+  moveSound = "";
+  backSound = "";
+  if (currentMenu != 4) {
   setTimeout(() => {
+    currentMenu = 1;
+    moveSound = document.getElementById("move_sound");
+    backSound = document.getElementById("back_sound");
+    selectSound = document.getElementById("select_sound");
     document.getElementById("menu1").style.opacity = "100%";
     pointer.className = "up";
     pointer.style.opacity = "100%";
+    box.textContent = "What will OMORI and friends do?";
   }, ms + "");
+  }
 }
 
-function hit(){
+function protect () {
+  blockSound.play();
+  sparkles.style.display = "block";
+  setTimeout(() => {
+    sparkles.style.display = "none";
+    blockSound.pause();
+    blockSound.currentTime = 0;
+  }, "2000");
+  delay(2000);
+}
+
+function hit () {
   hitSound.play();
   rockAttack.style.display = "block";
   setTimeout(() => {
@@ -160,8 +205,33 @@ function hit(){
   }, "400");
   roboheart_sprite.src = "./img/roboheart/roboheart_hit.gif";
   setTimeout(() => {
+    hitSound.pause();
+    hitSound.currentTime = 0;
+    if (isVictory === 0) {
     roboheart_sprite.src = "./img/roboheart/roboheart_neutral.gif";
+    }
   }, "1000");
+  calcHP();
+  delay(2000);
+}
+
+function rhHit () {
+  rhAttack.play();
+  aubrey_sprite.src = "./img/aubrey/aubrey_injured.gif";
+  hero_sprite.src = "./img/hero/hero_injured.gif";
+  omori_sprite.src = "./img/omori/omori_injured.gif";
+  kel_sprite.src = "./img/kel/kel_injured.gif";
+  sparkles2.style.display = "block";
+  setTimeout(() => {
+    if (isVictory === 0) {
+    sparkles2.style.display = "none";
+    aubrey_sprite.src = "./img/aubrey/aubrey_neutral.gif";
+    hero_sprite.src = "./img/hero/hero_neutral.gif";
+    omori_sprite.src = "./img/omori/omori_neutral.gif";
+    kel_sprite.src = "./img/kel/kel_neutral.gif";
+    }
+  }, "1500");
+  calcHP();
   delay(2000);
 }
 
@@ -185,7 +255,8 @@ function playRound (playerSelection, computerSelection) {
   let youLose = "";
 
   if (playerSelection === computerSelection) {
-    return "Roboheart blocks the attack with a " + playerSelection;
+    protect();
+    return "Roboheart protects from the attack with " + playerSelection;
   } else if (playerSelection === "rock") {
 
       youLose = (computerSelection === "paper" ? true : false);
@@ -205,23 +276,40 @@ function playRound (playerSelection, computerSelection) {
   if (youLose === false) {
     playerScore = playerScore + 1;
     hit();
-    return "Roboheart fails to protect from the attack due to utilizing " + computerSelection + "! \n Roboheart takes damage!";
+    if (isVictory === 0) {
+    return "Roboheart uses " + computerSelection + "! \n Roboheart takes damage!";
+    } else return "OMORI's party was victorious!";
   } else {
     computerScore = computerScore + 1;
+    rhHit();
+    if (isVictory === 0) {
     return "Roboheart counters " + playerSelection + " with " + computerSelection + "! \n Omori party takes damage!";
+    } else return "GAME OVER :(";
   }
 }
 
 function victory () {
+  isVictory = 1;
+  currentMenu = 4;
   aubrey_sprite.src = "./img/aubrey/aubrey_victory.gif";
   hero_sprite.src = "./img/hero/hero_victory.gif";
   omori_sprite.src = "./img/omori/omori_victory.gif";
   kel_sprite.src = "./img/kel/kel_victory.gif";
-  setTimeout(() => {
-    roboheart_sprite.src = "./img/roboheart/roboheart_defeated.gif";
-  }, "1000");
+  roboheart_sprite.src = "./img/roboheart/roboheart_defeated.gif";
   rhTheme.pause();
   rhTheme.currentTime = 0;
   victoryTheme.play();
-  
+  rhTheme = "";
+}
+
+function defeat () {
+  isVictory = 1;
+  currentMenu = 4;
+  aubrey_sprite.src = "./img/aubrey/aubrey_toast.gif";
+  hero_sprite.src = "./img/toast.gif";
+  omori_sprite.src = "./img/toast.gif";
+  kel_sprite.src = "./img/toast.gif";
+  rhTheme.pause();
+  rhTheme.currentTime = 0;
+  rhTheme = "";
 }

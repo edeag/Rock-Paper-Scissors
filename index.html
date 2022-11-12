@@ -11,6 +11,8 @@
     <audio src="./sounds/back.ogg" id="back_sound"></audio>
     <audio src="./sounds/roboheart.mp3" id="roboheart_theme"></audio>
     <audio src="./sounds/hit.ogg" id="hit_sound"></audio>
+    <audio src="./sounds/rh_attack.ogg" id="rh_attack"></audio>
+    <audio src="./sounds/block.ogg" id="block_attack"></audio>
     <audio src="./sounds/victory.mp3" id="victory_theme"></audio>
 
   </head>
@@ -23,7 +25,9 @@
       <img id="roboheart_sprite" src="" alt="roboheart">
     </div>
 
-    <img id="rock_attack" src="./img/ui/rock_attack.gif" alt="rock_attack">
+    <img id="rock_attack" src="./img/ui/rock_attack.gif" alt="*attack">
+    <img id="sparkles" src="./img/ui/sparkles.gif" alt="sparkles animation">
+    <img id="sparkles_2" src="./img/ui/sparkles_2.gif" alt="sparkles animation 2">
 
     <div id="main_ui">
 
@@ -31,18 +35,30 @@
         <div class="chrTop">
           <div class="chr" id="aubrey">
             <img id="aubrey_sprite" class="chr_sprite" src="" alt="aubrey">
+            <div class="chr_hpBar">
+              <div class="chr_hpBar_filler" id="aubrey_hp"></div>
+            </div>
           </div>
           <div class="chr" id="hero">
             <img id="hero_sprite" class="chr_sprite" src="" alt="hero">
+            <div class="chr_hpBar">
+              <div class="chr_hpBar_filler" id="hero_hp"></div>
+            </div>
           </div>
         </div>
 
         <div class="chrBottom">
           <div class="chr" id="omori">
             <img id="omori_sprite" class="chr_sprite" src="" alt="omori">
+            <div class="chr_hpBar">
+              <div class="chr_hpBar_filler" id="omori_hp"></div>
+            </div>
           </div>
           <div class="chr" id="kel">
             <img id="kel_sprite" class="chr_sprite" src="" alt="kel">
+            <div class="chr_hpBar">
+              <div class="chr_hpBar_filler" id="kel_hp"></div>
+            </div>
           </div>
         </div>
       </div>
